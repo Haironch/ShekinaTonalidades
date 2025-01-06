@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Music2, Mic2 } from 'lucide-react';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Music2, Mic2 } from "lucide-react";
 
 const HomePage = () => {
   const [isHovered, setIsHovered] = useState(false);
@@ -8,11 +8,10 @@ const HomePage = () => {
   const navigate = useNavigate();
 
   const handleRoleSelection = (role) => {
-    if (role === 'musician') {
-      navigate('/chords');
-    } else {
-      // TODO: Implementar ruta para cantores
-      console.log('Ruta para cantores pendiente');
+    if (role === "musician") {
+      navigate("/chords");
+    } else if (role === "singer") {
+      navigate("/select-song-can");
     }
     setShowModal(false);
   };
@@ -23,9 +22,9 @@ const HomePage = () => {
         <h1 className="text-4xl font-bold text-blue-200 mb-6 animate-fade-in">
           Ministerio de Alabanza Ebenezer Shekina
         </h1>
-        
+
         <p className="text-blue-100 text-lg leading-relaxed">
-          Este es un proyecto para el ministerio de alabanza de Ebenezer Shekina 
+          Este es un proyecto para el ministerio de alabanza de Ebenezer Shekina
           con el propósito de ver las tonalidades de cada alabanza
         </p>
 
@@ -36,9 +35,10 @@ const HomePage = () => {
           className={`
             px-8 py-3 rounded-lg font-semibold
             transform transition-all duration-300
-            ${isHovered 
-              ? 'bg-blue-400 scale-105 shadow-lg' 
-              : 'bg-blue-500 scale-100'
+            ${
+              isHovered
+                ? "bg-blue-400 scale-105 shadow-lg"
+                : "bg-blue-500 scale-100"
             }
             text-gray-900 hover:bg-blue-400
           `}
@@ -56,19 +56,29 @@ const HomePage = () => {
             </h2>
             <div className="grid grid-cols-2 gap-6">
               <button
-                onClick={() => handleRoleSelection('musician')}
+                onClick={() => handleRoleSelection("musician")}
                 className="flex flex-col items-center p-6 bg-white/10 rounded-xl hover:bg-white/20 transition-all duration-300 group"
               >
-                <Music2 size={48} className="text-blue-200 mb-4 group-hover:scale-110 transition-transform" />
-                <span className="text-blue-200 font-semibold text-lg">Músico</span>
+                <Music2
+                  size={48}
+                  className="text-blue-200 mb-4 group-hover:scale-110 transition-transform"
+                />
+                <span className="text-blue-200 font-semibold text-lg">
+                  Músico
+                </span>
               </button>
-              
+
               <button
-                onClick={() => handleRoleSelection('singer')}
+                onClick={() => handleRoleSelection("singer")}
                 className="flex flex-col items-center p-6 bg-white/10 rounded-xl hover:bg-white/20 transition-all duration-300 group"
               >
-                <Mic2 size={48} className="text-blue-200 mb-4 group-hover:scale-110 transition-transform" />
-                <span className="text-blue-200 font-semibold text-lg">Cantor</span>
+                <Mic2
+                  size={48}
+                  className="text-blue-200 mb-4 group-hover:scale-110 transition-transform"
+                />
+                <span className="text-blue-200 font-semibold text-lg">
+                  Cantor
+                </span>
               </button>
             </div>
           </div>
