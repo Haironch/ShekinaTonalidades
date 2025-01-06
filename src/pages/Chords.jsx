@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Chords = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
 
   const majorChords = [
@@ -43,6 +45,11 @@ const Chords = () => {
     chord.notation.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const handleChordClick = (chord) => {
+    // Usamos encodeURIComponent para manejar caracteres especiales en la URL
+    navigate(`/songs/${encodeURIComponent(chord.notation)}`);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-indigo-900 p-8">
       <div className="max-w-7xl mx-auto">
@@ -64,7 +71,7 @@ const Chords = () => {
                 <div 
                   key={index}
                   className="bg-white/10 backdrop-blur-sm p-6 rounded-lg shadow-lg hover:transform hover:scale-105 transition-all duration-300 cursor-pointer"
-                  onClick={() => console.log(`Navigate to songs in ${chord.name}`)}
+                  onClick={() => handleChordClick(chord)}
                 >
                   <h3 className="text-xl font-semibold text-blue-200">{chord.name}</h3>
                   <p className="text-blue-100 mt-2">{chord.notation}</p>
@@ -82,7 +89,7 @@ const Chords = () => {
                 <div 
                   key={index}
                   className="bg-white/10 backdrop-blur-sm p-6 rounded-lg shadow-lg hover:transform hover:scale-105 transition-all duration-300 cursor-pointer"
-                  onClick={() => console.log(`Navigate to songs in ${chord.name}`)}
+                  onClick={() => handleChordClick(chord)}
                 >
                   <h3 className="text-xl font-semibold text-blue-200">{chord.name}</h3>
                   <p className="text-blue-100 mt-2">{chord.notation}</p>

@@ -1,9 +1,21 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Music2, Mic2 } from 'lucide-react';
 
 const HomePage = () => {
   const [isHovered, setIsHovered] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
+
+  const handleRoleSelection = (role) => {
+    if (role === 'musician') {
+      navigate('/chords');
+    } else {
+      // TODO: Implementar ruta para cantores
+      console.log('Ruta para cantores pendiente');
+    }
+    setShowModal(false);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-indigo-900 flex flex-col items-center justify-center p-4">
@@ -18,7 +30,7 @@ const HomePage = () => {
         </p>
 
         <button
-          onClick={() => navigate('/chords')}
+          onClick={() => setShowModal(true)}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           className={`
@@ -31,9 +43,37 @@ const HomePage = () => {
             text-gray-900 hover:bg-blue-400
           `}
         >
-          Ver tonos
+          Comenzar
         </button>
       </div>
+
+      {/* Modal de selección */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 animate-fade-in">
+          <div className="bg-gradient-to-br from-gray-900 via-blue-900 to-indigo-900 p-8 rounded-xl shadow-xl max-w-md w-full backdrop-blur-sm">
+            <h2 className="text-2xl font-bold text-blue-200 mb-8 text-center">
+              Selecciona tu rol
+            </h2>
+            <div className="grid grid-cols-2 gap-6">
+              <button
+                onClick={() => handleRoleSelection('musician')}
+                className="flex flex-col items-center p-6 bg-white/10 rounded-xl hover:bg-white/20 transition-all duration-300 group"
+              >
+                <Music2 size={48} className="text-blue-200 mb-4 group-hover:scale-110 transition-transform" />
+                <span className="text-blue-200 font-semibold text-lg">Músico</span>
+              </button>
+              
+              <button
+                onClick={() => handleRoleSelection('singer')}
+                className="flex flex-col items-center p-6 bg-white/10 rounded-xl hover:bg-white/20 transition-all duration-300 group"
+              >
+                <Mic2 size={48} className="text-blue-200 mb-4 group-hover:scale-110 transition-transform" />
+                <span className="text-blue-200 font-semibold text-lg">Cantor</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
